@@ -1,0 +1,52 @@
+{
+  "name": "streaming-scuttlebutttttt",
+  "description": "The best project ever.",
+  "version": "0.0.0",
+  "homepage": "https://github.com/davemaurakis/streaming-scuttlebutttttt",
+  "author": {
+    "name": "davemaurakis",
+    "email": "davemaurakis@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/davemaurakis/streaming-scuttlebutttttt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/davemaurakis/streaming-scuttlebutttttt/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/davemaurakis/streaming-scuttlebutttttt/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": "lib/streaming-scuttlebutttttt",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "dependencies": {
+    "underscore": "~1.4.4",
+    "express": "~3.1.0",
+    "connect": "~2.7.3",
+    "scuttlebutt": "~5.5.20"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.0",
+    "grunt-devtools": "~0.1.0-7",
+    "grunt-browserify2": "~0.1.6",
+    "grunt-contrib-coffee": "~0.6.0",
+    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-stylus": "~0.5.0",
+    "handleify": "git://github.com/shanejonas/node-handleify.git#master",
+    "coffeeify": "0.3.0",
+    "should": "~1.2.2",
+    "mocha": "~1.8.2",
+    "uglify-js2": "~2.1.11",
+    "grunt-contrib-livereload": "~0.1.2",
+    "grunt-regarde": "~0.1.1",
+    "browserify-shim": "~2.0.3",
+    "coffee-script": "~1.6.3",
+    "sinon": "~1.7.2"
+  },
+  "keywords": []
+}
