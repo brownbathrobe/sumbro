@@ -1,0 +1,22 @@
+
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+.ball {
+    background: gray;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    -webkit-transition: all 0.1s;
+    -webkit-transform: translate3d(0,0,0);
+}
+
+.user {
+    background: #f6be11;
+    position: absolute;
+    text-align: center;
+    padding: 2.5% 0 0 0;
+}
+
+.user img {
+  width: 60%;
+}
