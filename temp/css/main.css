@@ -1,6 +1,36 @@
 
 * { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
+body {
+    background-color: silver;
+    background-image:
+        radial-gradient(circle at 100% 150%, silver 24%, white 25%, white 28%, silver 29%, silver 36%, white 36%, white 40%, transparent 40%, transparent),
+        radial-gradient(circle at 0    150%, silver 24%, white 25%, white 28%, silver 29%, silver 36%, white 36%, white 40%, transparent 40%, transparent),
+        radial-gradient(circle at 50%  100%, white 10%, silver 11%, silver 23%, white 24%, white 30%, silver 31%, silver 43%, white 44%, white 50%, silver 51%, silver 63%, white 64%, white 71%, transparent 71%, transparent),
+        radial-gradient(circle at 100% 50%, white 5%, silver 6%, silver 15%, white 16%, white 20%, silver 21%, silver 30%, white 31%, white 35%, silver 36%, silver 45%, white 46%, white 49%, transparent 50%, transparent),
+        radial-gradient(circle at 0    50%, white 5%, silver 6%, silver 15%, white 16%, white 20%, silver 21%, silver 30%, white 31%, white 35%, silver 36%, silver 45%, white 46%, white 49%, transparent 50%, transparent);
+        background-size:100px 50px;
+}
+
+#header {
+    z-index: 900;
+    position: relative;
+}
+
+h1 {
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    color: #fff;
+    font-size: 60px;
+    line-height: 80%;
+    text-transform: uppercase;
+    letter-spacing: -3px;
+    font-family: 'Vampiro One';
+    text-shadow: 0 1px 0 #CCC, 0 2px 0 #C9C9C9, 0 3px 0 #BBB, 0 4px 0 #B9B9B9, 0 5px 0 #AAA, 0 6px 1px rgba(0, 0, 0, .1), 0 0 5px rgba(0, 0, 0, .1), 0 1px 3px rgba(0, 0, 0, .3), 0 3px 5px rgba(0, 0, 0, .2), 0 5px 10px rgba(0, 0, 0, .25), 0 20px 20px rgba(0, 0, 0, .15);
+}
+
 .ball {
     background: gray;
     border-radius: 50%;
@@ -8,15 +38,86 @@
     height: 75px;
     -webkit-transition: all 0.1s;
     -webkit-transform: translate3d(0,0,0);
+    z-index: 800;
 }
 
 .user {
     background: #f6be11;
     position: absolute;
     text-align: center;
-    padding: 2.5% 0 0 0;
+    padding: 25px 0 0 0;
 }
 
 .user img {
   width: 60%;
+}
+
+.game {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    margin: -300px -300px 0;
+    border-radius: 50%;
+    border: 5px solid #323232;
+    -webkit-box-shadow: 0 0 15px 15px rgba(0,0,0,0.25);
+    background:
+        linear-gradient(27deg, #151515 5px, transparent 5px) 0 5px,
+        linear-gradient(207deg, #151515 5px, transparent 5px) 10px 0px,
+        linear-gradient(27deg, #222 5px, transparent 5px) 0px 10px,
+        linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
+        linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
+        linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);
+    background-color: #131313;
+    background-size: 20px 20px;
+}
+
+.ribbon {
+    width: 50%;
+    position: relative;
+    background:
+        linear-gradient(135deg, #424242 22px, #3b3b3b 22px, #3b3b3b 24px, transparent 24px, transparent 67px, #3b3b3b 67px, #3b3b3b 69px, transparent 69px),
+        linear-gradient(225deg, #424242 22px, #3b3b3b 22px, #3b3b3b 24px, transparent 24px, transparent 67px, #3b3b3b 67px, #3b3b3b 69px, transparent 69px)0 64px;
+    background-color: #424242;
+    background-size: 64px 128px;
+
+    color: #fff;
+    text-align: center;
+    padding: 1em 2em;
+    margin: 2em auto 3em;
+}
+.ribbon:before, .ribbon:after {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: -1em;
+    border: 1.5em solid #313131;
+    z-index: -1;
+}
+.ribbon:before {
+    left: -2em;
+    border-right-width: 1.5em;
+    border-left-color: transparent;
+}
+.ribbon:after {
+    right: -2em;
+    border-left-width: 1.5em;
+    border-right-color: transparent;
+}
+.ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
+    content: "";
+    position: absolute;
+    display: block;
+    border-style: solid;
+    border-color: #272727 transparent transparent transparent;
+    bottom: -1em;
+}
+.ribbon .ribbon-content:before {
+    left: 0;
+    border-width: 1em 0 0 1em;
+}
+.ribbon .ribbon-content:after {
+    right: 0;
+    border-width: 1em 1em 0 0;
 }
