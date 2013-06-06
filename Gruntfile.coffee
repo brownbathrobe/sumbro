@@ -49,7 +49,7 @@ module.exports = (grunt)->
         files: ['stylesheets/**/*']
         tasks: ['clean:styles', 'stylus:dev', 'livereload']
       app:
-        files: ['src/**/*']
+        files: ['src/**/*', './server.coffee']
         tasks: ['clean:build', 'browserify2:dev', 'express:app', 'livereload']
     express:
       app: './server.coffee'

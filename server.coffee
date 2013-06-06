@@ -14,8 +14,7 @@ app.configure ->
     res.setHeader('Content-Type', 'charset=utf-8')
     next()
 
-require('chalice-server')(app, require './index.html.hbs')
-require './src/app/application'
-
 app.listen 3000
+Game = require './src/app/game'
+game = new Game
 console.log 'listening on port 3000'
