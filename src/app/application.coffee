@@ -66,6 +66,7 @@ class Application
       el: @players[data.id]
       x: data.x
       y: data.y
+
     $('#arena').prepend @players[data.id]
 
   movePlayer: ({el, x, y, color}) ->

@@ -34,7 +34,7 @@ class Game
 
   onSocketConnection: (client) =>
     data = id: client.id
-    @socket.sockets.emit 'config',
+    client.emit 'config',
       platformSize: @platformSize
       arenaSize: @width
       color: 'grey'
@@ -82,7 +82,7 @@ class Game
     physicsPlayer.setRadius @particleSize/2
     {x, y} = @getRandom()
     physicsPlayer.moveTo new Vector x, y
-    physicsPlayer.setMass 5
+    physicsPlayer.setMass 2
     @collision.pool.push physicsPlayer
     physicsPlayer.behaviours.push @collision, @bounds, @center
     @physics.particles.push physicsPlayer
@@ -144,8 +144,8 @@ class Game
     @center = new Attraction()
     @center.target.x = @width/2
     @center.target.y = @height/2
-    @center.strength = 10
-
+    @center.radius = @width/2
+    @center.strength = 50
 
     @update()
     @gameState()
