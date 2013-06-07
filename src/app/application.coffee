@@ -1,15 +1,24 @@
 io = require 'socket.io-client'
-socket = io.connect 'http://localhost:8000'
+Player = require './player.coffee'
 
-socket.on 'connect', ->
-  console.log 'connected!'
+class Application
 
-socket.on 'new player', (data) ->
-  console.log 'new player!', data.id
+  constructor: ->
+    @socket = io.connect 'http://localhost:8000'
+    @addListeners()
 
-socket.on 'remove player', (data) ->
-  console.log 'byebye sucka', data.id
+  addListeners: ->
+    @socket.on 'connect', @onConnect, @
+    @socket.on 'new player', @onNewPlayer, @
+    @socket.on 'remove player', @onRemovePlayer, @
 
-window.socket = socket
+  onConnect: ->
+    console.log 'connected!'
 
-module.exports = {}
+  onRemovePlayer: (data) ->
+    console.log 'player removed:', data.id
+
+  onNewPlayer: (data) ->
+    console.log 'player added:', data.id
+
+module.exports = new Application

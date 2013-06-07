@@ -27,10 +27,6 @@ class Game
       self.removePlayer data
     client.on "move player", @onMovePlayer
 
-  onPlayerConnect: ->
-
-  onPlayerDisconnect: (client) ->
-
   onMovePlayer: ->
 
   addPlayer: (player) =>
