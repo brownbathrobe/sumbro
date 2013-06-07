@@ -14,6 +14,13 @@ app.configure ->
     res.setHeader('Content-Type', 'charset=utf-8')
     next()
 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'hbs');
+
+app.get '/', (req, res) ->
+  res.render 'index/index.html.hbs', 
+    hostName: require('os').hostname()
+
 app.listen 3000
 Game = require './src/app/game'
 game = new Game
