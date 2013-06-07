@@ -4,7 +4,6 @@ $ = require '../../vendor/zepto.js'
 
 class Application
 
-
   constructor: ->
     @socket = io.connect "http://#{window.hostName}:8000"
     @players = {}
@@ -31,6 +30,7 @@ class Application
   pushGameState: ->
     setTimeout =>
       if not @disconnected
+        console.log @hue
         data =
           x: @x
           y: @y
@@ -39,7 +39,7 @@ class Application
           color: @hue
         @socket.emit 'move player', data
         @pushGameState()
-    , 150
+    , 15
 
   onConfig: (data) =>
     $('#platform').css
@@ -47,6 +47,7 @@ class Application
       height: data.platformSize + 'px'
       left: (data.arenaSize - data.platformSize)/2
       top: (data.arenaSize - data.platformSize)/2
+    @hue = data.color
 
   onDisconnect: =>
     $('#arena').empty()
@@ -68,8 +69,10 @@ class Application
       y: data.y
     $('#arena').prepend @players[data.id]
 
-  movePlayer: ({el, x, y}) ->
-    el.css '-webkit-transform': "translate3d(#{x}px, #{y}px, 0)"
+  movePlayer: ({el, x, y, color}) ->
+    el.css 
+      '-webkit-transform': "translate3d(#{x}px, #{y}px, 0)"
+      'background-color': color
 
   onGameState: (data) =>
     for player in data
@@ -81,6 +84,7 @@ class Application
         el: el
         x: player.pos.x
         y: player.pos.y
+        color: player.color
       el.removeClass 'king nextKing'
       if player.isKing
         el.addClass 'king'
