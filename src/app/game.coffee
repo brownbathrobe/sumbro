@@ -51,7 +51,9 @@ class Game
     if data.x isnt null
       acc = new Vector data.x*100, data.y*100
       player = _(@physics.particles).where id: data.id
-      player[0].acc = acc
+      if player[0]?
+        player[0].acc = acc
+        player[0].color = data.color
 
   addPlayer: (player) =>
     @players[player.id] = player
@@ -87,6 +89,7 @@ class Game
         acc: player.acc
         radius: player.radius
         mass: player.mass
+        color: player.color
     @socket.sockets.emit 'game state', gameData
     setTimeout =>
       @gameState()
