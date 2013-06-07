@@ -12,6 +12,7 @@ class Application
 
   addListeners: ->
     @socket.on 'connect', @onConnect
+    @socket.on 'disconnect', @onDisconnect
     @socket.on 'new player', @onNewPlayer, @
     @socket.on 'remove player', @onRemovePlayer, @
     @socket.on 'game state', @onGameState, @
@@ -21,15 +22,19 @@ class Application
       @z = e.alpha
 
   pushGameState: ->
-    data = 
-      x: @x
-      y: @y
-      z: @z
-      id: @sessionid
-    @socket.emit 'move player', data
     setTimeout =>
-      @pushGameState()
+      if not @disconnected
+        data =
+          x: @x
+          y: @y
+          z: @z
+          id: @sessionid
+        @socket.emit 'move player', data
+        @pushGameState()
     , 150
+
+  onDisconnect: =>
+    @disconnected = yes
 
   onConnect: =>
     console.log 'connected!'

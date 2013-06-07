@@ -50,8 +50,8 @@ class Game
   onMovePlayer: (data) =>
     if data.x isnt null
       acc = new Vector data.x*100, data.y*100
-      player = _(@physics.particles).where id: data.id
-      player[0].acc = acc
+      [player] = _(@physics.particles).where id: data.id
+      player.acc = acc
 
   addPlayer: (player) =>
     @players[player.id] = player
@@ -66,7 +66,6 @@ class Game
     y = Math.random()*@height
     physicsPlayer.moveTo new Vector x, y
     physicsPlayer.setMass 1
-    
     @collision.pool.push physicsPlayer
     physicsPlayer.behaviours.push @collision, @bounds, @center
     @physics.particles.push physicsPlayer
@@ -95,6 +94,8 @@ class Game
   removePlayer: (player) =>
     [toRemove] = _(@physics.particles).where id: player.id
     @physics.particles = _(@physics.particles).without toRemove
+    [toRemove] = _(@collision.pool).where id: player.id
+    @collision.pool = _(@collision.pool).without toRemove
     delete @players[player.id]
     @socket.sockets.emit 'remove player', player
 
