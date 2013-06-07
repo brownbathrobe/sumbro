@@ -23,7 +23,7 @@ class Game
     @addPlayer data
     self = this
     client.on "disconnect", ->
-      data = id: this.id
+      data = id: @id
       self.removePlayer data
     client.on "move player", @onMovePlayer
 
@@ -36,13 +36,12 @@ class Game
   addPlayer: (player) =>
     @players[player.id] = player
     @socket.sockets.emit 'new player', player
-    console.log 'players=', @players
 
   removePlayer: (player) =>
     delete @players[player.id]
     @socket.sockets.emit 'remove player', player
 
   destructor: ->
-    # @socket.server.close()
+    @socket.server.close()
 
 module.exports = Game
