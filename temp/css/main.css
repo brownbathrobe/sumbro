@@ -4,9 +4,6 @@
 .ball {
     background: gray;
     border-radius: 50%;
-    width: 75px;
-    height: 75px;
-    -webkit-transition: all 0.1s;
     -webkit-transform: translate3d(0,0,0);
 }
 
@@ -14,7 +11,11 @@
     background: #f6be11;
     position: absolute;
     text-align: center;
-    padding: 2.5% 0 0 0;
+    /* padding: 2.5% 0 0 0; */
+}
+
+.user2{
+  background: navy;
 }
 
 .user img {
