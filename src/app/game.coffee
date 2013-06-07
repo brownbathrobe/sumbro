@@ -13,15 +13,8 @@ class Game
 
   width: 768
   height: 768
-  particlesize: 40
-  colors:[
-    'red',
-    'blue',
-    'green',
-    'orange',
-    'navy',
-    'lime'
-    ]
+  particleSize: 30
+  platformSize: 600
 
   constructor: ->
     @players = {}
@@ -40,6 +33,9 @@ class Game
 
   onSocketConnection: (client) =>
     data = id: client.id
+    @socket.sockets.emit 'config', 
+      platformSize: @platformSize
+      arenaSize: @width
     @addPlayer data
     self = this
     client.on "disconnect", ->
@@ -67,10 +63,10 @@ class Game
 
     physicsPlayer.timeStamp = Date.now()
 
-    physicsPlayer.setRadius @particlesize/2
     color = @colors[parseInt(Math.random()*@colors.length)]
     x = (@width / 2) - @particlesize / 2
     y = (@height / 2) - @particlesize / 2
+    physicsPlayer.setRadius @particleSize/2
     physicsPlayer.moveTo new Vector x, y
     physicsPlayer.setMass 1
     @collision.pool.push physicsPlayer

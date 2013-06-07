@@ -13,6 +13,7 @@ class Application
   addListeners: ->
     @socket.on 'connect', @onConnect
     @socket.on 'disconnect', @onDisconnect
+    @socket.on 'config', @onConfig
     @socket.on 'new player', @onNewPlayer, @
     @socket.on 'remove player', @onRemovePlayer, @
     @socket.on 'game state', @onGameState, @
@@ -40,6 +41,13 @@ class Application
         @pushGameState()
     , 150
 
+  onConfig: (data) =>
+    $('#platform').css
+      width: data.platformSize + 'px'
+      height: data.platformSize + 'px'
+      left: (data.arenaSize - data.platformSize)/2
+      top: (data.arenaSize - data.platformSize)/2
+
   onDisconnect: =>
     $('#arena').empty()
     @disconnected = yes
@@ -58,7 +66,7 @@ class Application
       el: @players[data.id]
       x: data.x
       y: data.y
-    $('#arena').append @players[data.id]
+    $('#arena').prepend @players[data.id]
 
   movePlayer: ({el, x, y}) ->
     el.css '-webkit-transform': "translate3d(#{x}px, #{y}px, 0)"
