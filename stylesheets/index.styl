@@ -45,20 +45,27 @@ nav
   position: relative
   background: #232425
   margin: 0 auto
-
+  
 .ball
   border-radius: 50%
-  width: 40px
-  height: 40px
-  background: grey
   position: absolute
-  border: 3px solid #DDD
+  border: 3px solid rgba(0,0,0,0.3)
+  z-index: 1000
+  width: 30px
+  height: 30px
+
+#platform
+  margin: 0 auto
+  background: #111
+  position: absolute
+  border-radius: 50%
+  border: 2px solid #333;
 
 .king
-  background: black
+  border-color: gold
 
 .nextKing
-  background: white
+  border-color: silver
 
 #rainbow
   width: 100%
