@@ -29,8 +29,9 @@ class Application
     for player in data
       el = $("##{player.id}")
       el.css 
-        left: ( player.pos.x-20 ) + 'px'
-        top: ( player.pos.y-20 )+ 'px'
+        # left: ( player.pos.x-player.radius ) + 'px'
+        # top: ( player.pos.y-player.radius )+ 'px'
+        '-webkit-transform': "translate3d(#{player.pos.x - player.radius}px, #{player.pos.y - player.radius}px, 0)"
 
 
 module.exports = new Application

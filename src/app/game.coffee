@@ -61,6 +61,7 @@ class Game
     x = Math.random()*@width
     y = Math.random()*@height
     player.moveTo new Vector x, y
+    player.setMass 5
     
     @collision.pool.push player
     player.behaviours.push @collision, @bounds, @center
@@ -85,7 +86,7 @@ class Game
     @socket.sockets.emit 'game state', gameData
     setTimeout =>
       @gameState()
-    , 22
+    , 15
 
   removePlayer: (player) =>
     delete @players[player.id]
@@ -93,13 +94,12 @@ class Game
 
   setupPhysics: ->
     @physics = new Physics()
-    # 
     @collision = new Collision()
     @bounds = new EdgeBounce new Vector(0,0), new Vector(@width, @height)
     @center = new Attraction()
     @center.target.x = @width/2
     @center.target.y = @height/2
-    @center.strength = 120
+    @center.strength = 1000
 
     # add sample player
     @addPlayer({id:1000})
