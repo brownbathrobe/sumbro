@@ -13,6 +13,7 @@ class Game
 
   width: 768
   height: 768
+  centerPoint: 384 
   particleSize: 30
   platformSize: 600
 
@@ -76,6 +77,13 @@ class Game
 
   update: ->
     @physics.step()
+    for player in @physics.particles
+      dx = player.pos.x - @centerPoint
+      dy = player.pos.y - @centerPoint
+      distance = Math.sqrt(dx * dx + dy * dy)
+      if distance > @platformSize/2
+        player.color = 'red'
+
     setTimeout =>
       @update()
     , 15
