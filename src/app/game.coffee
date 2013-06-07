@@ -82,7 +82,7 @@ class Game
     physicsPlayer.setRadius @particleSize/2
     {x, y} = @getRandom()
     physicsPlayer.moveTo new Vector x, y
-    physicsPlayer.setMass 2
+    physicsPlayer.setMass 4
     @collision.pool.push physicsPlayer
     physicsPlayer.behaviours.push @collision, @bounds, @center
     @physics.particles.push physicsPlayer
@@ -145,7 +145,7 @@ class Game
     @center.target.x = @width/2
     @center.target.y = @height/2
     @center.radius = @width/2
-    @center.strength = 50
+    @center.strength = -25
 
     @update()
     @gameState()
