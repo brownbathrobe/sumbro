@@ -81,12 +81,12 @@ h1 {
         linear-gradient(225deg, #424242 22px, #3b3b3b 22px, #3b3b3b 24px, transparent 24px, transparent 67px, #3b3b3b 67px, #3b3b3b 69px, transparent 69px)0 64px;
     background-color: #424242;
     background-size: 64px 128px;
-
     color: #fff;
     text-align: center;
     padding: 1em 2em;
     margin: 2em auto 3em;
 }
+
 .ribbon:before, .ribbon:after {
     content: "";
     position: absolute;
@@ -95,16 +95,19 @@ h1 {
     border: 1.5em solid #313131;
     z-index: -1;
 }
+
 .ribbon:before {
     left: -2em;
     border-right-width: 1.5em;
     border-left-color: transparent;
 }
+
 .ribbon:after {
     right: -2em;
     border-left-width: 1.5em;
     border-right-color: transparent;
 }
+
 .ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
     content: "";
     position: absolute;
@@ -113,10 +116,12 @@ h1 {
     border-color: #272727 transparent transparent transparent;
     bottom: -1em;
 }
+
 .ribbon .ribbon-content:before {
     left: 0;
     border-width: 1em 0 0 1em;
 }
+
 .ribbon .ribbon-content:after {
     right: 0;
     border-width: 1em 1em 0 0;
