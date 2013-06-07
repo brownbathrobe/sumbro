@@ -54,7 +54,14 @@ class Application
 
   onNewPlayer: (data) =>
     @players[data.id] = $ "<div class='ball' id='#{data.id}'></div>"
+    @movePlayer
+      el: @players[data.id]
+      x: data.x
+      y: data.y
     $('#arena').append @players[data.id]
+
+  movePlayer: ({el, x, y}) ->
+    el.css '-webkit-transform': "translate3d(#{x}px, #{y}px, 0)"
 
   onGameState: (data) =>
     for player in data
@@ -62,9 +69,10 @@ class Application
       if not el
         newP = @onNewPlayer player
         el = @players[player.id]
-      el.css
-        '-webkit-transform': "translate3d(#{player.pos.x - player.radius}px, #{player.pos.y - player.radius}px, 0)"
-        'background-color': player.color
+      @movePlayer
+        el: el
+        x: player.pos.x
+        y: player.pos.y
       el.removeClass 'king nextKing'
       if player.isKing
         el.addClass 'king'

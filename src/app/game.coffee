@@ -55,10 +55,12 @@ class Game
         player[0].acc = acc
         player[0].color = data.color
 
+  killPlayer: (playerID) ->
+    [player] = _(@physics.particles).where id: playerID
+    player?.timeStamp = Date.now()
+
   addPlayer: (player) =>
     @players[player.id] = player
-
-    @socket.sockets.emit 'new player', player
 
     physicsPlayer = new Particle()
     physicsPlayer.id = player.id
@@ -67,13 +69,14 @@ class Game
 
     physicsPlayer.setRadius @particlesize/2
     color = @colors[parseInt(Math.random()*@colors.length)]
-    x = Math.random()*@width
-    y = Math.random()*@height
+    x = (@width / 2) - @particlesize / 2
+    y = (@height / 2) - @particlesize / 2
     physicsPlayer.moveTo new Vector x, y
     physicsPlayer.setMass 1
     @collision.pool.push physicsPlayer
     physicsPlayer.behaviours.push @collision, @bounds, @center
     @physics.particles.push physicsPlayer
+    @socket.sockets.emit 'new player', {id: player.id, x, y}
 
   update: ->
     @physics.step()
