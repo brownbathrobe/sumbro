@@ -4,10 +4,10 @@ $ = require '../../vendor/zepto.js'
 
 class Application
 
-  players: []
 
   constructor: ->
     @socket = io.connect "http://#{window.hostName}:8000"
+    @players = {}
     @addListeners()
 
   addListeners: ->
@@ -19,18 +19,23 @@ class Application
   onConnect: ->
     console.log 'connected!'
 
-  onRemovePlayer: (data) ->
-    console.log 'player removed:', data.id
+  onRemovePlayer: (data) =>
+    @players[data.id].remove()
+    delete @players[data.id]
+    console.log 'player removed:', data.id, @players
 
-  onNewPlayer: (data) ->
-    console.log 'player added:', data.id
+  onNewPlayer: (data) =>
+    @players[data.id] = $ "<div class='ball' id='#{data.id}'></div>"
+    $('#arena').append @players[data.id]
+    console.log 'player added:', data.id, @players
 
-  onGameState: (data) ->
+  onGameState: (data) =>
     for player in data
-      el = $("##{player.id}")
-      el.css 
-        # left: ( player.pos.x-player.radius ) + 'px'
-        # top: ( player.pos.y-player.radius )+ 'px'
+      el = @players[player.id]
+      if not el
+        newP = @onNewPlayer player
+        el = @players[player.id]
+      el.css
         '-webkit-transform': "translate3d(#{player.pos.x - player.radius}px, #{player.pos.y - player.radius}px, 0)"
 
 

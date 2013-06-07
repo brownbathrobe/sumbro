@@ -54,18 +54,17 @@ class Game
 
     @socket.sockets.emit 'new player', player
 
-    player = new Particle()
-    player.setRadius @particlesize/2
-    # player.el = ($ "<div class='ball user'/>")
+    physicsPlayer = new Particle()
+    physicsPlayer.id = player.id
+    physicsPlayer.setRadius @particlesize/2
     color = @colors[parseInt(Math.random()*@colors.length)]
     x = Math.random()*@width
     y = Math.random()*@height
-    player.moveTo new Vector x, y
-    player.setMass 5
-    
-    @collision.pool.push player
-    player.behaviours.push @collision, @bounds, @center
-    @physics.particles.push player
+    physicsPlayer.moveTo new Vector x, y
+    physicsPlayer.setMass 5
+    @collision.pool.push physicsPlayer
+    physicsPlayer.behaviours.push @collision, @bounds, @center
+    @physics.particles.push physicsPlayer
 
   update: ->
     @physics.step()
@@ -89,6 +88,8 @@ class Game
     , 15
 
   removePlayer: (player) =>
+    [toRemove] = _(@physics.particles).where id: player.id
+    @physics.particles = _(@physics.particles).without toRemove
     delete @players[player.id]
     @socket.sockets.emit 'remove player', player
 
@@ -101,8 +102,6 @@ class Game
     @center.target.y = @height/2
     @center.strength = 1000
 
-    # add sample player
-    @addPlayer({id:1000})
 
     @update()
     @gameState()
