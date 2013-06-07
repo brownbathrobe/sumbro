@@ -30,7 +30,6 @@ class Application
   pushGameState: ->
     setTimeout =>
       if not @disconnected
-        console.log @hue
         data =
           x: @x
           y: @y
@@ -50,7 +49,7 @@ class Application
     @hue = data.color
 
   onDisconnect: =>
-    $('#arena').empty()
+    $('#arena .ball').remove()
     @disconnected = yes
 
   onConnect: =>
@@ -70,7 +69,7 @@ class Application
     $('#arena').prepend @players[data.id]
 
   movePlayer: ({el, x, y, color}) ->
-    el.css 
+    el.css
       '-webkit-transform': "translate3d(#{x}px, #{y}px, 0)"
       'background-color': color
 

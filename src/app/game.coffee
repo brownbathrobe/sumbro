@@ -13,9 +13,9 @@ class Game
 
   width: 768
   height: 768
-  centerPoint: 384 
+  centerPoint: 384
   particleSize: 30
-  platformSize: 600
+  platformSize: 700
 
   constructor: ->
     @players = {}
@@ -34,7 +34,7 @@ class Game
 
   onSocketConnection: (client) =>
     data = id: client.id
-    @socket.sockets.emit 'config', 
+    @socket.sockets.emit 'config',
       platformSize: @platformSize
       arenaSize: @width
       color: 'grey'
@@ -49,7 +49,6 @@ class Game
     if data.x isnt null
       acc = new Vector data.x*100, data.y*100
       player = _(@physics.particles).where id: data.id
-      console.log data
       if player[0]?
         player[0].acc = acc
         player[0].color = data.color
@@ -57,12 +56,18 @@ class Game
   killPlayer: (playerID) ->
     [player] = _(@physics.particles).where id: playerID
     player?.timeStamp = Date.now()
-    {x, y} = @getCenter()
+    {x, y} = @getRandom()
     player?.moveTo new Vector x, y
+    @findKing()
+
+  getRandom: ->
+    x = Math.random() * @platformSize + (@width - @platformSize) / 2
+    y = Math.random() * @platformSize + (@height - @platformSize) / 2
+    {x, y}
 
   getCenter: ->
-    x = (@width / 2) - @particlesize / 2
-    y = (@height / 2) - @particlesize / 2
+    x = (@width / 2) - @particleSize / 2
+    y = (@height / 2) - @particleSize / 2
     {x, y}
 
   addPlayer: (player) =>
@@ -74,10 +79,10 @@ class Game
 
     physicsPlayer.timeStamp = Date.now()
 
-    physicsPlayer.setRadius @particlesize/2
-    {x, y} = @getCenter()
+    physicsPlayer.setRadius @particleSize/2
+    {x, y} = @getRandom()
     physicsPlayer.moveTo new Vector x, y
-    physicsPlayer.setMass 1
+    physicsPlayer.setMass 5
     @collision.pool.push physicsPlayer
     physicsPlayer.behaviours.push @collision, @bounds, @center
     @physics.particles.push physicsPlayer
@@ -97,15 +102,16 @@ class Game
     , 15
 
   findKing: ->
-    [king, secondaryKing] = _(@physics.particles).sort (p) ->
-      p.timeStamp - Date.now()
+    now = Date.now()
+    [king, secondaryKing] = _(@physics.particles).sortBy (p) ->
+      diff = p.timeStamp - now
+      diff
     p.isKing = no for p in @physics.particles
     p.isNextKing = no for p in @physics.particles
     king?.isKing = yes
     secondaryKing?.isNextKing = yes
 
   gameState: ->
-    @findKing()
     gameData = []
     for player in @physics.particles
       gameData.push
