@@ -86,3 +86,4 @@ class Vector
 	### Resets the vector to zero. ###
 	clear: ->
 		@x = 0.0; @y = 0.0; @
+module.exports = Vector

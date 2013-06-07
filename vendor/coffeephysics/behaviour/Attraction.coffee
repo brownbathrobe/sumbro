@@ -1,3 +1,5 @@
+Vector = require '../math/Vector.coffee'
+Behaviour = require './Behaviour.coffee'
 ### Attraction Behaviour ###
 
 class Attraction extends Behaviour
@@ -33,3 +35,5 @@ class Attraction extends Behaviour
 
             #Apply force.
             p.acc.add @_delta.scale @strength
+
+module.exports = Attraction

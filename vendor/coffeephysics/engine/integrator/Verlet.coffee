@@ -1,3 +1,5 @@
+Integrator = require './Integrator.coffee'
+Vector = require '../../math/Vector.coffee'
 ### Velocity Verlet Integrator ###
 
 class Verlet extends Integrator
@@ -34,3 +36,4 @@ class Verlet extends Integrator
             # Reset forces.
             p.acc.clear()
 
+module.exports = Verlet

@@ -16,3 +16,5 @@ class Behaviour
 
 		# Store some data in each particle.
 		(p['__behaviour' + @GUID] ?= {counter: 0}).counter++
+
+module.exports = Behaviour

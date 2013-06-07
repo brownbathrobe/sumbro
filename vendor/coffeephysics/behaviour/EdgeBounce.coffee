@@ -1,3 +1,5 @@
+Vector = require '../math/Vector.coffee'
+Behaviour = require './Behaviour.coffee'
 ### Edge Bounce Behaviour ###
 
 class EdgeBounce extends Behaviour
@@ -26,3 +28,4 @@ class EdgeBounce extends Behaviour
 
 			p.pos.y = @max.y - p.radius
 
+module.exports = EdgeBounce

@@ -1,3 +1,5 @@
+Behaviour = require './Behaviour.coffee'
+Vector = require '../math/Vector.coffee'
 ### Collision Behaviour ###
 
 # TODO: Collision response for non Verlet integrators.
@@ -53,3 +55,5 @@ class Collision extends Behaviour
 
                 # Fire callback if defined.
                 @callback?(p, o, overlap)
+
+module.exports = Collision

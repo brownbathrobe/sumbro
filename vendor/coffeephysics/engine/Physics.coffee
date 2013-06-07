@@ -1,9 +1,9 @@
 ### Physics Engine ###
-Euler = require './integrator/Euler.coffee'
+Verlet = require './integrator/Verlet.coffee'
 
 class Physics
 
-  constructor: (@integrator = new Euler()) ->
+  constructor: (@integrator = new Verlet()) ->
 
     # Fixed timestep.
     @timestep = 1.0 / 60

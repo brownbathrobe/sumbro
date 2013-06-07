@@ -1,3 +1,4 @@
+Vector = require '../math/Vector.coffee'
 ### Particle ###
 class Particle
 
@@ -62,3 +63,5 @@ class Particle
       for behaviour in @behaviours
 
         behaviour.apply @, dt, index
+
+module.exports = Particle        
