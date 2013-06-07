@@ -16,10 +16,16 @@ class Application
     @socket.on 'new player', @onNewPlayer, @
     @socket.on 'remove player', @onRemovePlayer, @
     @socket.on 'game state', @onGameState, @
+    $("#rainbow").on 'click', @rainbowTouch
     $(window).on 'deviceorientation', (e) =>
       @x = e.gamma
       @y = e.beta
       @z = e.alpha
+
+  rainbowTouch: (e) =>
+    @hue = "hsl(#{(e.clientX/window.innerWidth)*360}, 90%, 40%)"
+    $('#rainbow').css
+      'border-top' : "5px solid #{@hue}"
 
   pushGameState: ->
     setTimeout =>
@@ -29,6 +35,7 @@ class Application
           y: @y
           z: @z
           id: @sessionid
+          color: @hue
         @socket.emit 'move player', data
         @pushGameState()
     , 150
@@ -60,6 +67,7 @@ class Application
         el = @players[player.id]
       el.css
         '-webkit-transform': "translate3d(#{player.pos.x - player.radius}px, #{player.pos.y - player.radius}px, 0)"
+        'background-color': player.color
 
 
 module.exports = new Application
