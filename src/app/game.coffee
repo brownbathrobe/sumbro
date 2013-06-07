@@ -1,7 +1,7 @@
 _ = require 'underscore'
 io = require 'socket.io'
 socket = io.listen(8000)
-require '../../vendor/physics'
+Physics = require '../../vendor/coffeephysics/engine/Physics.coffee'
 
 class Game
 
