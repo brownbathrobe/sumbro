@@ -4,30 +4,78 @@
 
   Game = (function() {
 
+    function Game() {}
+
     Game.prototype.width = window.innerWidth;
 
     Game.prototype.height = window.innerHeight;
 
-    function Game() {
-      this.setup();
-    }
+    Game.prototype.particlesize = 40;
 
-    Game.prototype.addPlayer = function() {};
+    Game.prototype.colors = ['red', 'blue', 'green', 'orange', 'navy', 'lime'];
+
+    Game.prototype.initialize = function() {
+      return this.setup();
+    };
+
+    Game.prototype.render = function() {
+      var player, _i, _len, _ref,
+        _this = this;
+      _ref = this.physics.particles;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        player = _ref[_i];
+        player.el.css({
+          top: player.pos.y,
+          left: player.pos.x
+        });
+      }
+      return setTimeout(function() {
+        return _this.update();
+      }, 17);
+    };
+
+    Game.prototype.update = function() {
+      this.physics.step();
+      return this.render();
+    };
+
+    Game.prototype.addPlayer = function() {
+      var color, player, x, y;
+      player = new Particle();
+      player.setRadius(this.particlesize / 2);
+      player.el = $("<div class='ball user'/>");
+      color = this.colors[parseInt(Math.random() * this.colors.length)];
+      x = Math.random() * this.width;
+      y = Math.random() * this.height;
+      player.moveTo(new Vector(x, y));
+      player.el.css({
+        background: color,
+        width: this.particlesize,
+        height: this.particlesize
+      });
+      $('body').prepend(player.el);
+      this.collision.pool.push(player);
+      player.behaviours.push(this.collision, this.bounds, this.center);
+      return this.physics.particles.push(player);
+    };
 
     Game.prototype.removePlayer = function(id) {};
 
     Game.prototype.setup = function() {
+      var i, _i;
       this.physics = new Physics();
       this.physics.integrator = new Verlet();
       this.collision = new Collision();
       this.bounds = new EdgeBounce(new Vector(0, 0), new Vector(this.width, this.height));
+      this.center = new Attraction();
+      this.center.target.x = this.width / 2;
+      this.center.target.y = this.height / 2;
+      this.center.strength = 120;
+      for (i = _i = 0; _i <= 10; i = ++_i) {
+        this.addPlayer();
+      }
+      console.log(this);
       return this.update();
-    };
-
-    Game.prototype.render = function() {};
-
-    Game.prototype.update = function() {
-      return this.physics.step();
     };
 
     return Game;
@@ -35,5 +83,7 @@
   })();
 
   game = new Game();
+
+  game.initialize();
 
 }).call(this);
