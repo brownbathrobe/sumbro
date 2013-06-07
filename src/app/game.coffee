@@ -14,7 +14,7 @@ class Game
   width: 768
   height: 768
   centerPoint: 384
-  particleSize: 30
+  particleSize: 50
   platformSize: 700
 
   constructor: ->
