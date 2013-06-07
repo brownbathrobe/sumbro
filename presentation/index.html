@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html manifest="cache.appcache">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+  <title>Documenting Interfaces</title>
+
+  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700|Bitter:400,700,400italic|Lato:300,400,700,900">
+
+  <link href="styles.css" rel="stylesheet" media="screen" />
+  <link href="custom.css" rel="stylesheet" media="screen" />
+  <link href="pretty/prettify.css" rel="stylesheet" media="screen" />
+  <script src="pretty/prettify.js"></script>
+
+</head>
+<body onload="prettyPrint()">
+
+<!-- presentation -->
+<div class="presentation">
+
+  <div id="presentation-counter">
+    Loading...
+  </div>
+
+  <div id="logo">
+    <img src="logo.svg">
+  </div>
+
+  <!-- slides -->
+  <div class="slides">
+
+    <div id="landing-slide" class="slide full grid">
+        <h1>HackDay :<br> Project Sumbro</h1>
+        <h2>Darrin Henein, Shane Jonas, Dave Maurakis &amp; Darcy Clarke</h2>
+    </div>
+
+    <div id="goals" class="slide full grid example">
+      <h2>Goals</h2>
+      <ul data-build>
+        <li>- Build a fun game
+        <li>- That supports multiplayer
+        <li>- Has Simple game mechanics
+        <li>- Uses websockets, streaming or WebRTC
+      </ul>
+    </div>
+
+    <div id="sumbro" class="slide full grid">
+      <section class="middle">
+        <h1>Project "Sumbro"</h1>
+      </section>
+    </div>
+
+    <div id="about" class="slide full grid example">
+      <h2>Sumbro</h2>
+      <ul data-build>
+        <li>- It's Sumo bro!
+        <li>- Inspired by <a href="http://www.youtube.com/watch?v=Y83pOQO4tbk">Fuzion Frenzy</a>
+        <li>- "King of the hill" style sumo wrestling
+        <li>- Longest lasting player is "king"
+      </ul>
+    </div>
+
+    <div id="technology" class="slide full grid example">
+      <h2>Technology</h2>
+      <ul data-build>
+        <li>- Node.js
+        <li>- Websockets (socket.io)
+        <li>- Physics (Coffee Physics)
+      </ul>
+    </div>
+
+    <div id="demo" class="slide full grid">
+      <section class="middle">
+        <h1>Demo!</h1>
+      </section>
+    </div>
+
+    <div id="thanks" class="slide full grid">
+      <section class="middle">
+        <h1>Thanks You! Questions?</h1>
+      </section>
+    </div>
+
+  </div>
+  <!-- slides -->
+
+</div>
+<!-- presentation -->
+
+<script src="jquery.js"></script>
+<script src="scripts.js"></script>
+
+</body>
+</html>
