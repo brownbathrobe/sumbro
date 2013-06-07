@@ -11,8 +11,8 @@ Vector = require '../../vendor/coffeephysics/math/Vector.coffee'
 
 class Game
 
-  width: 600
-  height: 600
+  width: 768
+  height: 768
   particlesize: 40
   colors:[
     'red',
@@ -47,7 +47,11 @@ class Game
       self.removePlayer data
     client.on "move player", @onMovePlayer
 
-  onMovePlayer: ->
+  onMovePlayer: (data) =>
+    if data.x isnt null
+      acc = new Vector data.x*100, data.y*100
+      console.log acc
+      @physics.particles[@physics.particles.length-1].acc = acc
 
   addPlayer: (player) =>
     @players[player.id] = player
@@ -60,11 +64,12 @@ class Game
     color = @colors[parseInt(Math.random()*@colors.length)]
     x = Math.random()*@width
     y = Math.random()*@height
-    physicsPlayer.moveTo new Vector x, y
-    physicsPlayer.setMass 5
-    @collision.pool.push physicsPlayer
-    physicsPlayer.behaviours.push @collision, @bounds, @center
-    @physics.particles.push physicsPlayer
+    player.moveTo new Vector x, y
+    player.setMass 1
+    
+    @collision.pool.push player
+    player.behaviours.push @collision, @bounds, @center
+    @physics.particles.push player
 
   update: ->
     @physics.step()
@@ -100,7 +105,7 @@ class Game
     @center = new Attraction()
     @center.target.x = @width/2
     @center.target.y = @height/2
-    @center.strength = 1000
+    @center.strength = 10
 
 
     @update()

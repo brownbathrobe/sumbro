@@ -11,13 +11,31 @@ class Application
     @addListeners()
 
   addListeners: ->
-    @socket.on 'connect', @onConnect, @
+    @socket.on 'connect', @onConnect
     @socket.on 'new player', @onNewPlayer, @
     @socket.on 'remove player', @onRemovePlayer, @
     @socket.on 'game state', @onGameState, @
+    $(window).on 'deviceorientation', (e) =>
+      @x = e.gamma
+      @y = e.beta
+      @z = e.alpha
 
-  onConnect: ->
+  pushGameState: ->
+    data = 
+      x: @x
+      y: @y
+      z: @z
+      id: @sessionid
+    @socket.emit 'move player', data
+    setTimeout =>
+      @pushGameState()
+    , 150
+
+  onConnect: =>
     console.log 'connected!'
+    @sessionid = @socket.socket.sessionid
+    @pushGameState()
+
 
   onRemovePlayer: (data) =>
     @players[data.id].remove()
