@@ -58,6 +58,13 @@ class Game
   killPlayer: (playerID) ->
     [player] = _(@physics.particles).where id: playerID
     player?.timeStamp = Date.now()
+    {x, y} = @getCenter()
+    player?.moveTo new Vector x, y
+
+  getCenter: ->
+    x = (@width / 2) - @particlesize / 2
+    y = (@height / 2) - @particlesize / 2
+    {x, y}
 
   addPlayer: (player) =>
     @players[player.id] = player
@@ -69,8 +76,7 @@ class Game
 
     physicsPlayer.setRadius @particlesize/2
     color = @colors[parseInt(Math.random()*@colors.length)]
-    x = (@width / 2) - @particlesize / 2
-    y = (@height / 2) - @particlesize / 2
+    {x, y} = @getCenter()
     physicsPlayer.moveTo new Vector x, y
     physicsPlayer.setMass 1
     @collision.pool.push physicsPlayer
