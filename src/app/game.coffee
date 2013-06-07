@@ -62,6 +62,9 @@ class Game
 
     physicsPlayer = new Particle()
     physicsPlayer.id = player.id
+
+    physicsPlayer.timeStamp = Date.now()
+
     physicsPlayer.setRadius @particlesize/2
     color = @colors[parseInt(Math.random()*@colors.length)]
     x = Math.random()*@width
@@ -78,7 +81,16 @@ class Game
       @update()
     , 15
 
+  findKing: ->
+    [king, secondaryKing] = _(@physics.particles).sort (p) ->
+      p.timeStamp - Date.now()
+    p.isKing = no for p in @physics.particles
+    p.isNextKing = no for p in @physics.particles
+    king?.isKing = yes
+    secondaryKing?.isNextKing = yes
+
   gameState: ->
+    @findKing()
     gameData = []
     for player in @physics.particles
       gameData.push
@@ -89,6 +101,8 @@ class Game
         radius: player.radius
         mass: player.mass
         color: player.color
+        isKing: player.isKing
+        isNextKing: player.isNextKing
     @socket.sockets.emit 'game state', gameData
     setTimeout =>
       @gameState()
