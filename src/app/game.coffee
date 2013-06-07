@@ -50,8 +50,8 @@ class Game
   onMovePlayer: (data) =>
     if data.x isnt null
       acc = new Vector data.x*100, data.y*100
-      console.log acc
-      @physics.particles[@physics.particles.length-1].acc = acc
+      player = _(@physics.particles).where id: data.id
+      player[0].acc = acc
 
   addPlayer: (player) =>
     @players[player.id] = player
@@ -64,12 +64,12 @@ class Game
     color = @colors[parseInt(Math.random()*@colors.length)]
     x = Math.random()*@width
     y = Math.random()*@height
-    player.moveTo new Vector x, y
-    player.setMass 1
+    physicsPlayer.moveTo new Vector x, y
+    physicsPlayer.setMass 1
     
-    @collision.pool.push player
-    player.behaviours.push @collision, @bounds, @center
-    @physics.particles.push player
+    @collision.pool.push physicsPlayer
+    physicsPlayer.behaviours.push @collision, @bounds, @center
+    @physics.particles.push physicsPlayer
 
   update: ->
     @physics.step()
