@@ -30,7 +30,6 @@ class Application
   pushGameState: ->
     setTimeout =>
       if not @disconnected
-        console.log @hue
         data =
           x: @x
           y: @y

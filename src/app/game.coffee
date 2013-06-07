@@ -14,7 +14,7 @@ class Game
   width: 768
   height: 768
   centerPoint: 384 
-  particleSize: 30
+  particleSize: 50
   platformSize: 600
 
   constructor: ->
@@ -49,7 +49,6 @@ class Game
     if data.x isnt null
       acc = new Vector data.x*100, data.y*100
       player = _(@physics.particles).where id: data.id
-      console.log data
       if player[0]?
         player[0].acc = acc
         player[0].color = data.color
@@ -61,8 +60,8 @@ class Game
     player?.moveTo new Vector x, y
 
   getCenter: ->
-    x = (@width / 2) - @particlesize / 2
-    y = (@height / 2) - @particlesize / 2
+    x = (@width / 2) - @particleSize / 2
+    y = (@height / 2) - @particleSize / 2
     {x, y}
 
   addPlayer: (player) =>
